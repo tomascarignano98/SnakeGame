@@ -7,11 +7,11 @@ const score = document.querySelector("#score");
 const squares = [];
 const snake = [2, 1, 0];
 let direction = 1;
-const timerId = setInterval(move, 500);
+let timerId = undefined;
 
 // Event listeners
-// startBtn.addEventListener("click", startGame);
-document.addEventListener("keydown", control);
+startBtn.addEventListener("click", startGame);
+// document.addEventListener("keydown", control);
 
 // Functions
 
@@ -43,7 +43,6 @@ function move() {
 
   snake.unshift(snake[0] + direction);
   squares[snake[0]].classList.add("snake");
-  console.log(snake);
 }
 
 // Control snake movement
@@ -70,8 +69,9 @@ function control(event) {
   }
 }
 
-//
-// function startGame() {
-//   document.addEventListener("keydown", control);
-//   startBtn.removeEventListener("click", startGame);
-// }
+function startGame() {
+  timerId = setInterval(move, 500);
+
+  document.addEventListener("keydown", control);
+  startBtn.removeEventListener("click", startGame);
+}
