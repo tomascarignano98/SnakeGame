@@ -6,7 +6,12 @@ const squares = [];
 const snake = [18, 17, 16];
 let direction = 1;
 
-//
+// Event listeners
+startBtn.addEventListener("click", startGame);
+
+// Functions
+
+// Display grid and snake
 function createGrid() {
   for (let i = 0; i < 100; i++) {
     const element = document.createElement("div");
@@ -17,18 +22,16 @@ function createGrid() {
 createGrid();
 snake.forEach((index) => squares[index].classList.add("snake"));
 
-//
+// Make the snake move around the grid
 function move() {
   const tail = snake.pop();
   squares[tail].classList.remove("snake");
 
   snake.unshift(snake[0] + direction);
   squares[snake[0]].classList.add("snake");
-  console.log(snake);
 }
 
-const timerId = setInterval(move, 500);
-
+// Control snake movement
 function control(event) {
   switch (event.key) {
     case "ArrowUp":
@@ -52,4 +55,10 @@ function control(event) {
   }
 }
 
-document.addEventListener("keydown", control);
+//
+function startGame() {
+  const timerId = setInterval(move, 250);
+
+  document.addEventListener("keydown", control);
+  startBtn.removeEventListener("click", startGame);
+}
