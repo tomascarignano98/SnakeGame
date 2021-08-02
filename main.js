@@ -5,7 +5,7 @@ const scoreEl = document.querySelector("#score");
 
 // Necessary variables
 const squares = [];
-const snake = [2, 1, 0];
+let snake = [2, 1, 0];
 let direction = 1;
 let timerId = undefined;
 let score = 0;
@@ -72,10 +72,17 @@ function control(event) {
 }
 
 function startGame() {
-  timerId = setInterval(move, 200);
+  clearInterval(timerId);
+  snake.forEach((index) => squares[index].classList.remove("snake"));
+  score = 0;
+
+  snake = [2, 1, 0];
+  direction = 1;
+  scoreEl.innerText = 0;
+  snake.forEach((index) => squares[index].classList.add("snake"));
+  timerId = setInterval(move, 300);
 
   document.addEventListener("keydown", control);
-  startBtn.removeEventListener("click", startGame);
 }
 
 function generateApple() {
